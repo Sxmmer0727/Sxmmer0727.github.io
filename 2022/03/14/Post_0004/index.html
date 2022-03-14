@@ -18,22 +18,22 @@
   <link 
     rel="icon" 
     href="/img/head.png">
-  <title>第一篇博客：基于Hexo和Github的博客搭建</title>
+  <title>第4篇博客：XML的简单解析方法以及反射读取注解</title>
   
     
       <meta 
         property="og:title" 
-        content="第一篇博客：基于Hexo和Github的博客搭建">
+        content="第4篇博客：XML的简单解析方法以及反射读取注解">
     
     
       <meta 
         property="og:url" 
-        content="http://sxmmer0727.github.io/2022/02/21/myFirst/index.html">
+        content="http://sxmmer0727.github.io/2022/03/14/Post_0004/index.html">
     
     
       <meta 
         property="og:img" 
-        content="/img/4.png">
+        content="/img/head.png">
     
     
     
@@ -42,10 +42,10 @@
         content="article">
       <meta 
         property="og:article:published_time" 
-        content="2022-02-21">
+        content="2022-03-14">
       <meta 
         property="og:article:modified_time" 
-        content="2022-02-21">
+        content="2022-03-14">
       <meta 
         property="og:article:author" 
         content="小洵">
@@ -261,33 +261,24 @@
         <div class="container">
           <div class="columns">
             <main class="main-column">
-  <div class="image-wrapper">
-    <img 
-      src="/img/4.png" 
-      data-src="/img/4.png"
-      srcset="data:image/svg+xml,%3Csvg%20xmlns=&#39;http://www.w3.org/2000/svg&#39;%20viewBox=&#39;0%200%20300%20300&#39;%3E%3C/svg%3E"
-      class="image lozad"
-      alt="第一篇博客：基于Hexo和Github的博客搭建 thumbnail">
-  </div>
-
 <article class="card card-content">
   <header>
     <h1 class="post-title">
-      第一篇博客：基于Hexo和Github的博客搭建
+      第4篇博客：XML的简单解析方法以及反射读取注解
     </h1>
   </header>
   <div class="post-meta post-show-meta">
-    <time datetime="2022-02-21T12:15:22.000Z">
+    <time datetime="2022-03-14T12:15:22.000Z">
       <i 
         class="iconfont icon-calendar" 
         style="margin-right: 2px;">
       </i>
-      <span>2022-02-21</span>
+      <span>2022-03-14</span>
     </time>
     
     
       <span class="dot"></span>
-      <span>729 words</span>
+      <span>511 words</span>
     
   </div>
   
@@ -315,38 +306,15 @@
     id="section" 
     class="post-content">
     <hr>
-<p>成为程序员多年以来的第一篇博客，目前是浙江工业大学研二的一名学生，虽然在老师底下进行的研究是关于综合能源管理方面，更细一点就是光伏发电功率的预测，这样的研究取得了一点小成就，但基于对未来就业的考虑，还是决定吃<em><strong>JAVA</strong></em>这颗卷心菜！由于学习<em><strong>JAVA</strong></em>知识体系结构比较发杂，虽然有着比较好的编程基础，也系统的学习过编程。但是为了就业还是打算更加系统的学习并记录，所以产生了写博客的想法。<br><br>此前本人对博客一无所知，因此咨询了一下身边的子涵大佬，于是得到了这样的回答。<br></p>
-<p><img src="/img/1.png" alt="聊天记录截图" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="/img/1.png" class="lozad post-image"><br><img src="/img/2.png" alt="聊天记录截图2" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="/img/2.png" class="lozad post-image"><br></p>
-<p>emmm我的博客目的只是作为一个学习的总结以及监督效果，目前花太大精力我还是不太愿意的，所以就从b站等地方下手寻找资源，最终采用了这个基于Hexo和Github的博客。<br></p>
-<h2 id="博客的搭建主要分为以下四步"><a href="#博客的搭建主要分为以下四步" class="headerlink" title="博客的搭建主要分为以下四步"></a>博客的搭建主要分为以下四步</h2><blockquote>
-<h3 id="博客搭建的主要步骤"><a href="#博客搭建的主要步骤" class="headerlink" title="博客搭建的主要步骤"></a>博客搭建的主要步骤</h3><ul>
-<li>软件安装</li>
-<li>Github的准备工作</li>
-<li>本地搭建博客</li>
-<li>博客上传以及更新维护</li>
-</ul>
-</blockquote>
-<h2 id="1-安装Node-js以及Git和Hexo"><a href="#1-安装Node-js以及Git和Hexo" class="headerlink" title="1.安装Node.js以及Git和Hexo"></a>1.安装Node.js以及Git和Hexo</h2><p>这些软件都有详细的安装方法，在这里就不做赘述。需要注意的是：<em><strong>Node.js</strong></em>的版本一定不能过低，否则在用指令安装Hexo的时候就会产生如下报错。</p>
-<p><img src="/img/3.png" alt="聊天记录截图2" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="/img/3.png" class="lozad post-image"><br></p>
-<h2 id="2-Github的准备工作"><a href="#2-Github的准备工作" class="headerlink" title="2.Github的准备工作"></a>2.Github的准备工作</h2><p>Github的准备工作主要就是新建一个responsitory作为博客的仓库，比较重要的一步就是responsitory name需要命名为 <em><strong>你的Github昵称.github.io</strong></em><br></p>
-<p>随后生成ssh公共密钥：在博客文件夹下右键点击Git Bush Here, 出现Git的控制台</p>
-<pre class="highlight"><span class="line">$ ssh</span><br><span class="line">$ ssh-keygen -t rsa -C<span class="string">&quot;Github的邮件地址&quot;</span></span><br></pre>
+<h2 id="XML解析的步骤"><a href="#XML解析的步骤" class="headerlink" title="XML解析的步骤"></a>XML解析的步骤</h2><pre class="highlight"><span class="line">//1.获取解析工厂</span><br><span class="line">SAXParserFactory factory = SAXParserFactory.newInstance();</span><br><span class="line">//2.从解析工厂获取解析器</span><br><span class="line">SAXParser parse = factory.newSAXParser();</span><br><span class="line">//3.加载文档Document注册处理器</span><br><span class="line">//4.编写处理器</span><br><span class="line">PersonHandler handler = new PersonHandler();</span><br><span class="line">//5.解析</span><br><span class="line">//从当前线程的类加载器中中获取</span><br><span class="line">parse.parse(Thread.currentThread().getContextClassLoader().getResourceAsStream(<span class="string">&quot;cn/java0314/Xml/p.xml&quot;</span>), handler);</span><br></pre>
+<pre class="highlight"><span class="line">具体的解析过程</span><br><span class="line"> public void startDocument() throws SAXException &#123;</span><br><span class="line">    persons = new ArrayList&lt;Person&gt;();</span><br><span class="line">    System.out.println(<span class="string">&quot;解析文档开始&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"> public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException &#123;</span><br><span class="line">    System.out.println(qName + <span class="string">&quot;解析元素开始&quot;</span>);</span><br><span class="line">    tag = qName;</span><br><span class="line">    <span class="keyword">if</span> (tag != null) &#123;</span><br><span class="line">        <span class="keyword">if</span> (qName.equals(<span class="string">&quot;person&quot;</span>)) &#123;</span><br><span class="line">            person = new Person();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">public void characters(char[] ch, int start, int length) throws SAXException &#123;</span><br><span class="line">    String contents = new String(ch, start, length).trim();</span><br><span class="line">    //解析字段</span><br><span class="line">    //这里是具体的解析过程，需要根据实际情况进行选择</span><br><span class="line">    <span class="keyword">if</span> (tag != null) &#123;</span><br><span class="line">        <span class="keyword">if</span> (tag.equals(<span class="string">&quot;name&quot;</span>)) &#123;</span><br><span class="line">            person.setName(contents);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (tag.equals(<span class="string">&quot;age&quot;</span>)) &#123;</span><br><span class="line">            person.setAge(Integer.valueOf(contents));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public void endElement(String uri, String localName, String qName) throws SAXException &#123;</span><br><span class="line">    System.out.println(qName + <span class="string">&quot;解析元素结束&quot;</span>);</span><br><span class="line">    tag = null;</span><br><span class="line">    <span class="keyword">if</span> (qName.equals(<span class="string">&quot;person&quot;</span>)) persons.add(person);</span><br><span class="line">&#125;</span><br><span class="line">public void endDocument() throws SAXException &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;解析文档结束&quot;</span>);</span><br><span class="line">&#125;</span><br></pre>
+<hr>
+<h2 id="定义一个注解"><a href="#定义一个注解" class="headerlink" title="定义一个注解"></a>定义一个注解</h2><pre class="highlight"><span class="line">//注解生效的类型：可以被类或者类的属性使用</span><br><span class="line">@Target(value = &#123;ElementType.TYPE,ElementType.FIELD&#125;)</span><br><span class="line">//注解的作用域：可以被其他程序读取</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">public @interface Annoatation01 &#123;</span><br><span class="line">    //注解的参数定义</span><br><span class="line">    int length() default 0;</span><br><span class="line">    String name();</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre>
+<h2 id="在类中使用注解"><a href="#在类中使用注解" class="headerlink" title="在类中使用注解"></a>在类中使用注解</h2><pre class="highlight"><span class="line">/**</span><br><span class="line"> * 注解测试类</span><br><span class="line"> */</span><br><span class="line">@Annoatation01(length = 10, name=<span class="string">&quot;table&quot;</span>)</span><br><span class="line">public class Student &#123;</span><br><span class="line">    @Annoatation01(length = 9, name=<span class="string">&quot;name&quot;</span>)</span><br><span class="line">    private String studentName;</span><br><span class="line"></span><br><span class="line">    @Annoatation01(length = 8, name=<span class="string">&quot;age&quot;</span>)</span><br><span class="line">    private int age;</span><br><span class="line">&#125;</span><br></pre>
 
-<p>这之后可在电脑该用户名下找到.ssh文件夹，打开id_rsa.pub文件全选复制粘贴到Github的new SSH key 中即可,随后测试是否绑定成功<br></p>
-<pre class="highlight"><span class="line">$ ssh -T git@github.com</span><br></pre>
+<h2 id="反射读取注解"><a href="#反射读取注解" class="headerlink" title="反射读取注解"></a>反射读取注解</h2><pre class="highlight"><span class="line">public static void main(String[] args) throws Exception &#123;</span><br><span class="line">    //获得类的所有有效注解</span><br><span class="line">    Class  clazz = Class.forName(<span class="string">&quot;cn.java0314.Annotation.Student&quot;</span>);</span><br><span class="line">    Annotation[] annotations = clazz.getAnnotations();</span><br><span class="line">    <span class="keyword">for</span> (Annotation annotation : annotations) &#123;</span><br><span class="line">        System.out.println(annotation);</span><br><span class="line">    &#125;</span><br><span class="line">    //获得类的指定的注解</span><br><span class="line">    Annoatation01 annoatation01 = (Annoatation01) clazz.getAnnotation(Annoatation01.class);</span><br><span class="line">    System.out.println(annoatation01.name()+<span class="string">&quot;---&gt;&quot;</span>+annoatation01.length());</span><br><span class="line"></span><br><span class="line">    //获得类的属性的注解</span><br><span class="line">    Field f = clazz.getDeclaredField(<span class="string">&quot;studentName&quot;</span>);</span><br><span class="line">    Annoatation01 annoatation011 = f.getAnnotation(Annoatation01.class);</span><br><span class="line">    System.out.println(annoatation011.name()+<span class="string">&quot;---&gt;&quot;</span>+annoatation011.length());</span><br><span class="line">    &#125;</span><br></pre>
 
-<h2 id="3-本地搭建博客"><a href="#3-本地搭建博客" class="headerlink" title="3.本地搭建博客"></a>3.本地搭建博客</h2><p>在博客的文件夹下打开Git控制台，输入以下指令</p>
-<pre class="highlight"><span class="line">$ hexo init // 初始化</span><br><span class="line">$ hexo s // 打开本地服务器</span><br></pre>
-
-<p>在这里可以进行博客的model的美化，我从官网上找到了现在的这个主题，感觉还8错。需要修改配置文件中的主题名名称。</p>
-<h2 id="4-博客上传至服务器"><a href="#4-博客上传至服务器" class="headerlink" title="4.博客上传至服务器"></a>4.博客上传至服务器</h2><p>修改配置文件中的type 、 repository 以及 branch属性</p>
-<pre class="highlight"><span class="line"><span class="built_in">type</span>: git</span><br><span class="line">repository: 你的Github昵称.github.io</span><br><span class="line">branch: main</span><br></pre>
-
-<p>调用Git控制台</p>
-<pre class="highlight"><span class="line">$ npm install hexo-deployer-git --save // 安装部署工具</span><br><span class="line">$ hexo g  // 生成</span><br><span class="line">$ hexo d  // 部署</span><br></pre>
-
-<p>再通过Github的授权，由此就完成了博客的上传搭建，就可以用网络访问啦！</p>
-<p>注： 本文的大部分资源来自于<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1mU4y1j72n?p=4">B站此UP主</a></p>
+<p><img src="/img/5bike.jpg" alt="sxm骑车图片" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="/img/5bike.jpg" class="lozad post-image"><br></p>
 
   </div>
   <div>
@@ -366,8 +334,8 @@
           <span style="font-weight: bold;">文章链接：</span><a 
             target="_blank" 
             rel="nofollow noopener noreferrer" 
-            href="http://sxmmer0727.github.io/2022/02/21/myFirst/">
-            http://sxmmer0727.github.io/2022/02/21/myFirst/
+            href="http://sxmmer0727.github.io/2022/03/14/Post_0004/">
+            http://sxmmer0727.github.io/2022/03/14/Post_0004/
           </a>
         </p>
         <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
@@ -377,29 +345,15 @@
 </article>
 <div class="nav">
   
-    <div class="nav-item-prev">
-      <a 
-        href="/2022/02/21/Post_0002/" 
-        class="nav-link">
-        <i class="iconfont icon-left nav-prev-icon"></i>
-        <div>
-          <div class="nav-label">Prev</div>
-          
-            <div class="nav-title">第2篇博客：今后的生涯规划及学习安排 </div>
-          
-        </div>
-      </a>
-    </div>
-  
   
     <div class="nav-item-next">
       <a 
-        href="/2022/02/21/hello-world/" 
+        href="/2022/02/28/Post_0003/" 
         class="nav-link">
         <div>
           <div class="nav-label">Next</div>
           
-            <div class="nav-title">Hello World </div>
+            <div class="nav-title">第3篇博客：java的基础知识补充 </div>
           
         </div>
         <i class="iconfont icon-right nav-next-icon"></i>
@@ -417,7 +371,7 @@
     style="padding-right: 2px;">
   </i>TOC
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%9A%E5%AE%A2%E7%9A%84%E6%90%AD%E5%BB%BA%E4%B8%BB%E8%A6%81%E5%88%86%E4%B8%BA%E4%BB%A5%E4%B8%8B%E5%9B%9B%E6%AD%A5"><span class="toc-text">博客的搭建主要分为以下四步</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E7%9A%84%E4%B8%BB%E8%A6%81%E6%AD%A5%E9%AA%A4"><span class="toc-text">博客搭建的主要步骤</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%AE%89%E8%A3%85Node-js%E4%BB%A5%E5%8F%8AGit%E5%92%8CHexo"><span class="toc-text">1.安装Node.js以及Git和Hexo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Github%E7%9A%84%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="toc-text">2.Github的准备工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%9C%AC%E5%9C%B0%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2"><span class="toc-text">3.本地搭建博客</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%8D%9A%E5%AE%A2%E4%B8%8A%E4%BC%A0%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">4.博客上传至服务器</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#XML%E8%A7%A3%E6%9E%90%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="toc-text">XML解析的步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AA%E6%B3%A8%E8%A7%A3"><span class="toc-text">定义一个注解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8%E7%B1%BB%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%B3%A8%E8%A7%A3"><span class="toc-text">在类中使用注解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8D%E5%B0%84%E8%AF%BB%E5%8F%96%E6%B3%A8%E8%A7%A3"><span class="toc-text">反射读取注解</span></a></li></ol>
 </div></main>
             <aside class="left-column">
               
@@ -465,7 +419,7 @@
     style="padding-right: 2px;">
   </i>TOC
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%9A%E5%AE%A2%E7%9A%84%E6%90%AD%E5%BB%BA%E4%B8%BB%E8%A6%81%E5%88%86%E4%B8%BA%E4%BB%A5%E4%B8%8B%E5%9B%9B%E6%AD%A5"><span class="toc-text">博客的搭建主要分为以下四步</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E7%9A%84%E4%B8%BB%E8%A6%81%E6%AD%A5%E9%AA%A4"><span class="toc-text">博客搭建的主要步骤</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%AE%89%E8%A3%85Node-js%E4%BB%A5%E5%8F%8AGit%E5%92%8CHexo"><span class="toc-text">1.安装Node.js以及Git和Hexo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Github%E7%9A%84%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="toc-text">2.Github的准备工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%9C%AC%E5%9C%B0%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2"><span class="toc-text">3.本地搭建博客</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%8D%9A%E5%AE%A2%E4%B8%8A%E4%BC%A0%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">4.博客上传至服务器</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#XML%E8%A7%A3%E6%9E%90%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="toc-text">XML解析的步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AA%E6%B3%A8%E8%A7%A3"><span class="toc-text">定义一个注解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8%E7%B1%BB%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%B3%A8%E8%A7%A3"><span class="toc-text">在类中使用注解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8D%E5%B0%84%E8%AF%BB%E5%8F%96%E6%B3%A8%E8%A7%A3"><span class="toc-text">反射读取注解</span></a></li></ol>
       </div>
     </article>
   
@@ -518,7 +472,7 @@
     style="padding-right: 2px;">
   </i>TOC
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%9A%E5%AE%A2%E7%9A%84%E6%90%AD%E5%BB%BA%E4%B8%BB%E8%A6%81%E5%88%86%E4%B8%BA%E4%BB%A5%E4%B8%8B%E5%9B%9B%E6%AD%A5"><span class="toc-text">博客的搭建主要分为以下四步</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E7%9A%84%E4%B8%BB%E8%A6%81%E6%AD%A5%E9%AA%A4"><span class="toc-text">博客搭建的主要步骤</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%AE%89%E8%A3%85Node-js%E4%BB%A5%E5%8F%8AGit%E5%92%8CHexo"><span class="toc-text">1.安装Node.js以及Git和Hexo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Github%E7%9A%84%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="toc-text">2.Github的准备工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%9C%AC%E5%9C%B0%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2"><span class="toc-text">3.本地搭建博客</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%8D%9A%E5%AE%A2%E4%B8%8A%E4%BC%A0%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">4.博客上传至服务器</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#XML%E8%A7%A3%E6%9E%90%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="toc-text">XML解析的步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AA%E6%B3%A8%E8%A7%A3"><span class="toc-text">定义一个注解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8%E7%B1%BB%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%B3%A8%E8%A7%A3"><span class="toc-text">在类中使用注解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8D%E5%B0%84%E8%AF%BB%E5%8F%96%E6%B3%A8%E8%A7%A3"><span class="toc-text">反射读取注解</span></a></li></ol>
     </article>
   
   
