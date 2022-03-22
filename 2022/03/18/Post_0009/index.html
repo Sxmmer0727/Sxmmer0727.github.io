@@ -18,17 +18,17 @@
   <link 
     rel="icon" 
     href="/img/head.png">
-  <title>第4篇博客：XML的简单解析方法以及反射读取注解</title>
+  <title>第9篇博客：MySQL常用单行函数</title>
   
     
       <meta 
         property="og:title" 
-        content="第4篇博客：XML的简单解析方法以及反射读取注解">
+        content="第9篇博客：MySQL常用单行函数">
     
     
       <meta 
         property="og:url" 
-        content="http://sxmmer0727.github.io/2022/03/14/Post_0004/index.html">
+        content="http://sxmmer0727.github.io/2022/03/18/Post_0009/index.html">
     
     
       <meta 
@@ -42,10 +42,10 @@
         content="article">
       <meta 
         property="og:article:published_time" 
-        content="2022-03-14">
+        content="2022-03-18">
       <meta 
         property="og:article:modified_time" 
-        content="2022-03-14">
+        content="2022-03-22">
       <meta 
         property="og:article:author" 
         content="小洵">
@@ -264,21 +264,21 @@
 <article class="card card-content">
   <header>
     <h1 class="post-title">
-      第4篇博客：XML的简单解析方法以及反射读取注解
+      第9篇博客：MySQL常用单行函数
     </h1>
   </header>
   <div class="post-meta post-show-meta">
-    <time datetime="2022-03-14T12:15:22.000Z">
+    <time datetime="2022-03-18T14:51:22.000Z">
       <i 
         class="iconfont icon-calendar" 
         style="margin-right: 2px;">
       </i>
-      <span>2022-03-14</span>
+      <span>2022-03-18</span>
     </time>
     
     
       <span class="dot"></span>
-      <span>511 words</span>
+      <span>583 words</span>
     
   </div>
   
@@ -306,13 +306,8 @@
     id="section" 
     class="post-content">
     <hr>
-<h2 id="XML解析的步骤"><a href="#XML解析的步骤" class="headerlink" title="XML解析的步骤"></a>XML解析的步骤</h2><pre class="highlight"><span class="line">//1.获取解析工厂</span><br><span class="line">SAXParserFactory factory = SAXParserFactory.newInstance();</span><br><span class="line">//2.从解析工厂获取解析器</span><br><span class="line">SAXParser parse = factory.newSAXParser();</span><br><span class="line">//3.加载文档Document注册处理器</span><br><span class="line">//4.编写处理器</span><br><span class="line">PersonHandler handler = new PersonHandler();</span><br><span class="line">//5.解析</span><br><span class="line">//从当前线程的类加载器中中获取</span><br><span class="line">parse.parse(Thread.currentThread().getContextClassLoader().getResourceAsStream(<span class="string">&quot;cn/java0314/Xml/p.xml&quot;</span>), handler);</span><br></pre>
-<pre class="highlight"><span class="line">具体的解析过程</span><br><span class="line"> public void startDocument() throws SAXException &#123;</span><br><span class="line">    persons = new ArrayList&lt;Person&gt;();</span><br><span class="line">    System.out.println(<span class="string">&quot;解析文档开始&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"> public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException &#123;</span><br><span class="line">    System.out.println(qName + <span class="string">&quot;解析元素开始&quot;</span>);</span><br><span class="line">    tag = qName;</span><br><span class="line">    <span class="keyword">if</span> (tag != null) &#123;</span><br><span class="line">        <span class="keyword">if</span> (qName.equals(<span class="string">&quot;person&quot;</span>)) &#123;</span><br><span class="line">            person = new Person();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">public void characters(char[] ch, int start, int length) throws SAXException &#123;</span><br><span class="line">    String contents = new String(ch, start, length).trim();</span><br><span class="line">    //解析字段</span><br><span class="line">    //这里是具体的解析过程，需要根据实际情况进行选择</span><br><span class="line">    <span class="keyword">if</span> (tag != null) &#123;</span><br><span class="line">        <span class="keyword">if</span> (tag.equals(<span class="string">&quot;name&quot;</span>)) &#123;</span><br><span class="line">            person.setName(contents);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (tag.equals(<span class="string">&quot;age&quot;</span>)) &#123;</span><br><span class="line">            person.setAge(Integer.valueOf(contents));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">public void endElement(String uri, String localName, String qName) throws SAXException &#123;</span><br><span class="line">    System.out.println(qName + <span class="string">&quot;解析元素结束&quot;</span>);</span><br><span class="line">    tag = null;</span><br><span class="line">    <span class="keyword">if</span> (qName.equals(<span class="string">&quot;person&quot;</span>)) persons.add(person);</span><br><span class="line">&#125;</span><br><span class="line">public void endDocument() throws SAXException &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;解析文档结束&quot;</span>);</span><br><span class="line">&#125;</span><br></pre>
-<hr>
-<h2 id="定义一个注解"><a href="#定义一个注解" class="headerlink" title="定义一个注解"></a>定义一个注解</h2><pre class="highlight"><span class="line">//注解生效的类型：可以被类或者类的属性使用</span><br><span class="line">@Target(value = &#123;ElementType.TYPE,ElementType.FIELD&#125;)</span><br><span class="line">//注解的作用域：可以被其他程序读取</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">public @interface Annoatation01 &#123;</span><br><span class="line">    //注解的参数定义</span><br><span class="line">    int length() default 0;</span><br><span class="line">    String name();</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre>
-<h2 id="在类中使用注解"><a href="#在类中使用注解" class="headerlink" title="在类中使用注解"></a>在类中使用注解</h2><pre class="highlight"><span class="line">/**</span><br><span class="line"> * 注解测试类</span><br><span class="line"> */</span><br><span class="line">@Annoatation01(length = 10, name=<span class="string">&quot;table&quot;</span>)</span><br><span class="line">public class Student &#123;</span><br><span class="line">    @Annoatation01(length = 9, name=<span class="string">&quot;name&quot;</span>)</span><br><span class="line">    private String studentName;</span><br><span class="line"></span><br><span class="line">    @Annoatation01(length = 8, name=<span class="string">&quot;age&quot;</span>)</span><br><span class="line">    private int age;</span><br><span class="line">&#125;</span><br></pre>
+<h2 id="MySQL常用单行函数"><a href="#MySQL常用单行函数" class="headerlink" title="MySQL常用单行函数"></a>MySQL常用单行函数</h2><pre class="highlight"><span class="line"><span class="comment"># 进阶4 ：常用函数介绍</span></span><br><span class="line">/*</span><br><span class="line">select 函数名(实参列表) 【from 表】</span><br><span class="line"></span><br><span class="line">	1.单行函数</span><br><span class="line">	</span><br><span class="line">	2.分组函数(聚合函数)</span><br><span class="line">	</span><br><span class="line">*/</span><br><span class="line">USE myemployees;</span><br><span class="line"><span class="comment">#1. 字符函数</span></span><br><span class="line"><span class="comment">#length 获取参数值的字节个数</span></span><br><span class="line">SELECT LENGTH(<span class="string">&#x27;john&#x27;</span>);</span><br><span class="line"><span class="comment">#concat 拼接字符串</span></span><br><span class="line">SELECT CONCAT(last_name,<span class="string">&#x27;_&#x27;</span>,first_name) 姓名 FROM employees;</span><br><span class="line"><span class="comment">#upper\lower</span></span><br><span class="line">SELECT UPPER(last_name) FROM employees;</span><br><span class="line"><span class="comment">#substr\substring 索引从1开始(字符长度)</span></span><br><span class="line">SELECT SUBSTR(<span class="string">&#x27;123456&#x27;</span>,1,3) out_put;</span><br><span class="line"></span><br><span class="line"><span class="comment">#姓名中用首字符大写，其他字符小写，然后用_拼接，显示出来</span></span><br><span class="line">SELECT </span><br><span class="line">  CONCAT(</span><br><span class="line">    UPPER(SUBSTR(LAST_NAME, 1, 1)),</span><br><span class="line">    LOWER(SUBSTR(LAST_NAME, 2)),</span><br><span class="line">    <span class="string">&#x27;_&#x27;</span>,</span><br><span class="line">    LOWER(first_name)</span><br><span class="line">  ) </span><br><span class="line">FROM</span><br><span class="line">  employees ;</span><br><span class="line"></span><br><span class="line"><span class="comment">#instr 返回字串第一次出现的起始索引，若没有，则返回0</span></span><br><span class="line">SELECT INSTR(<span class="string">&#x27;123456&#x27;</span>,<span class="string">&#x27;4&#x27;</span>);</span><br><span class="line"><span class="comment">#trim() 去除前后空格</span></span><br><span class="line">SELECT TRIM(<span class="string">&#x27;  123456   &#x27;</span>) AS out_put;</span><br><span class="line">SELECT TRIM(<span class="string">&#x27;1&#x27;</span> FROM <span class="string">&#x27;123456111&#x27;</span>) AS output;</span><br><span class="line"><span class="comment">#lpad 用指定的字符实现左填充指定长度/ rpad（右填充）</span></span><br><span class="line">SELECT LPAD(<span class="string">&#x27;123456&#x27;</span>,10,<span class="string">&#x27;*&#x27;</span>) AS output;</span><br><span class="line"><span class="comment">#replace用指定的字符替换指定字符</span></span><br><span class="line">SELECT REPLACE(<span class="string">&#x27;123456&#x27;</span>,<span class="string">&#x27;1&#x27;</span>,<span class="string">&#x27;9&#x27;</span>) AS output;</span><br><span class="line"></span><br><span class="line"><span class="comment">#2.数学函数</span></span><br><span class="line"><span class="comment">#round 四舍五入 第二个参数为小数点后保留多少位数</span></span><br><span class="line">SELECT ROUND(-1.454,2);</span><br><span class="line"><span class="comment">#ceil向上取整 返回大于等于该参的最小整数 floor(向下取整)</span></span><br><span class="line">SELECT CEIL(1.00);</span><br><span class="line"><span class="comment">#truncate（截断）,直接舍弃后续小数</span></span><br><span class="line">SELECT TRUNCATE(1.699,1);</span><br><span class="line"><span class="comment">#mod取余数,余数符号与被除数一致</span></span><br><span class="line">SELECT MOD(-10,3);</span><br><span class="line"></span><br><span class="line"><span class="comment">#3.日期函数</span></span><br><span class="line"><span class="comment">#now返回系统当前日期和时间</span></span><br><span class="line">SELECT NOW();</span><br><span class="line"><span class="comment">#curdate返回当前日期</span></span><br><span class="line">SELECT CURDATE();</span><br><span class="line"><span class="comment">#curtime返回当前时间</span></span><br><span class="line">SELECT CURTIME();</span><br><span class="line"><span class="comment">#可以获取指定的部分</span></span><br><span class="line">SELECT YEAR(hiredate),MONTH(NOW()) FROM employees;</span><br><span class="line"><span class="comment">#将字符串解析为日期str_to_date date_format</span></span><br><span class="line"><span class="comment"># Y:四位数年份 y:两位数年份 m；两位数月份 c：一位数月份</span></span><br><span class="line"><span class="comment"># h:小时 i分钟 s秒</span></span><br><span class="line">SELECT STR_TO_DATE(<span class="string">&#x27;1998-12-13&#x27;</span>,<span class="string">&#x27;%Y-%m-%d&#x27;</span>);</span><br><span class="line">SELECT DATE_FORMAT(NOW(),<span class="string">&#x27;%Y年%m月%d日--%H:%i%s&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">#4.其他函数</span></span><br><span class="line">SELECT VERSION();</span><br><span class="line">SELECT DATABASE();</span><br><span class="line">SELECT USER();</span><br><span class="line"></span><br><span class="line"><span class="comment">#5.流程控制函数</span></span><br><span class="line"><span class="comment"># if-else</span></span><br><span class="line">SELECT last_name,commission_pct,IF(commission_pct IS NULL ,<span class="string">&#x27;0&#x27;</span>,<span class="string">&#x27;1&#x27;</span>) FROM employees;</span><br><span class="line"><span class="comment"># case when then else end</span></span><br><span class="line"><span class="comment">#查询员工的工资</span></span><br><span class="line">SELECT </span><br><span class="line">  CASE</span><br><span class="line">    department_id </span><br><span class="line">    WHEN 30 </span><br><span class="line">    THEN salary * 1.1 </span><br><span class="line">    WHEN 40 </span><br><span class="line">    THEN salary * 1.2 </span><br><span class="line">    WHEN 50 </span><br><span class="line">    THEN salary * 1.3 </span><br><span class="line">    ELSE salary </span><br><span class="line">  END </span><br><span class="line">  AS 新工资</span><br><span class="line">  FROM employees;</span><br><span class="line">  </span><br><span class="line">SELECT salary,</span><br><span class="line">  CASE</span><br><span class="line">    WHEN salary &gt;20000 THEN <span class="string">&#x27;A&#x27;</span></span><br><span class="line">    WHEN salary &gt;10000 THEN <span class="string">&#x27;B&#x27;</span></span><br><span class="line">    WHEN salary &gt;0 THEN <span class="string">&#x27;C&#x27;</span></span><br><span class="line">    ELSE <span class="string">&#x27;D&#x27;</span></span><br><span class="line">    END</span><br><span class="line">    AS 工资级别</span><br><span class="line">    FROM employees;</span><br></pre>
 
-<h2 id="反射读取注解"><a href="#反射读取注解" class="headerlink" title="反射读取注解"></a>反射读取注解</h2><pre class="highlight"><span class="line">public static void main(String[] args) throws Exception &#123;</span><br><span class="line">    //获得类的所有有效注解</span><br><span class="line">    Class  clazz = Class.forName(<span class="string">&quot;cn.java0314.Annotation.Student&quot;</span>);</span><br><span class="line">    Annotation[] annotations = clazz.getAnnotations();</span><br><span class="line">    <span class="keyword">for</span> (Annotation annotation : annotations) &#123;</span><br><span class="line">        System.out.println(annotation);</span><br><span class="line">    &#125;</span><br><span class="line">    //获得类的指定的注解</span><br><span class="line">    Annoatation01 annoatation01 = (Annoatation01) clazz.getAnnotation(Annoatation01.class);</span><br><span class="line">    System.out.println(annoatation01.name()+<span class="string">&quot;---&gt;&quot;</span>+annoatation01.length());</span><br><span class="line"></span><br><span class="line">    //获得类的属性的注解</span><br><span class="line">    Field f = clazz.getDeclaredField(<span class="string">&quot;studentName&quot;</span>);</span><br><span class="line">    Annoatation01 annoatation011 = f.getAnnotation(Annoatation01.class);</span><br><span class="line">    System.out.println(annoatation011.name()+<span class="string">&quot;---&gt;&quot;</span>+annoatation011.length());</span><br><span class="line">    &#125;</span><br></pre>
 
 <p><img src="/img/5bike.jpg" alt="sxm骑车图片" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="/img/5bike.jpg" class="lozad post-image"><br></p>
 
@@ -334,8 +329,8 @@
           <span style="font-weight: bold;">文章链接：</span><a 
             target="_blank" 
             rel="nofollow noopener noreferrer" 
-            href="http://sxmmer0727.github.io/2022/03/14/Post_0004/">
-            http://sxmmer0727.github.io/2022/03/14/Post_0004/
+            href="http://sxmmer0727.github.io/2022/03/18/Post_0009/">
+            http://sxmmer0727.github.io/2022/03/18/Post_0009/
           </a>
         </p>
         <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
@@ -345,29 +340,15 @@
 </article>
 <div class="nav">
   
-    <div class="nav-item-prev">
-      <a 
-        href="/2022/03/14/Post_0005/" 
-        class="nav-link">
-        <i class="iconfont icon-left nav-prev-icon"></i>
-        <div>
-          <div class="nav-label">Prev</div>
-          
-            <div class="nav-title">第5篇博客：反射机制的详细使用 </div>
-          
-        </div>
-      </a>
-    </div>
-  
   
     <div class="nav-item-next">
       <a 
-        href="/2022/02/28/Post_0003/" 
+        href="/2022/03/17/Post_0008/" 
         class="nav-link">
         <div>
           <div class="nav-label">Next</div>
           
-            <div class="nav-title">第3篇博客：java的基础知识补充 </div>
+            <div class="nav-title">第8篇博客：MySQL排序查询 </div>
           
         </div>
         <i class="iconfont icon-right nav-next-icon"></i>
@@ -385,7 +366,7 @@
     style="padding-right: 2px;">
   </i>TOC
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#XML%E8%A7%A3%E6%9E%90%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="toc-text">XML解析的步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AA%E6%B3%A8%E8%A7%A3"><span class="toc-text">定义一个注解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8%E7%B1%BB%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%B3%A8%E8%A7%A3"><span class="toc-text">在类中使用注解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8D%E5%B0%84%E8%AF%BB%E5%8F%96%E6%B3%A8%E8%A7%A3"><span class="toc-text">反射读取注解</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL%E5%B8%B8%E7%94%A8%E5%8D%95%E8%A1%8C%E5%87%BD%E6%95%B0"><span class="toc-text">MySQL常用单行函数</span></a></li></ol>
 </div></main>
             <aside class="left-column">
               
@@ -433,7 +414,7 @@
     style="padding-right: 2px;">
   </i>TOC
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#XML%E8%A7%A3%E6%9E%90%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="toc-text">XML解析的步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AA%E6%B3%A8%E8%A7%A3"><span class="toc-text">定义一个注解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8%E7%B1%BB%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%B3%A8%E8%A7%A3"><span class="toc-text">在类中使用注解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8D%E5%B0%84%E8%AF%BB%E5%8F%96%E6%B3%A8%E8%A7%A3"><span class="toc-text">反射读取注解</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL%E5%B8%B8%E7%94%A8%E5%8D%95%E8%A1%8C%E5%87%BD%E6%95%B0"><span class="toc-text">MySQL常用单行函数</span></a></li></ol>
       </div>
     </article>
   
@@ -486,7 +467,7 @@
     style="padding-right: 2px;">
   </i>TOC
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#XML%E8%A7%A3%E6%9E%90%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="toc-text">XML解析的步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AA%E6%B3%A8%E8%A7%A3"><span class="toc-text">定义一个注解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8%E7%B1%BB%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%B3%A8%E8%A7%A3"><span class="toc-text">在类中使用注解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8D%E5%B0%84%E8%AF%BB%E5%8F%96%E6%B3%A8%E8%A7%A3"><span class="toc-text">反射读取注解</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL%E5%B8%B8%E7%94%A8%E5%8D%95%E8%A1%8C%E5%87%BD%E6%95%B0"><span class="toc-text">MySQL常用单行函数</span></a></li></ol>
     </article>
   
   
