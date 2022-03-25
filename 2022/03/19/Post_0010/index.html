@@ -18,17 +18,17 @@
   <link 
     rel="icon" 
     href="/img/head.png">
-  <title>Hello World</title>
+  <title>第10篇博客：MySQL分组函数</title>
   
     
       <meta 
         property="og:title" 
-        content="Hello World">
+        content="第10篇博客：MySQL分组函数">
     
     
       <meta 
         property="og:url" 
-        content="http://sxmmer0727.github.io/2022/02/21/hello-world/index.html">
+        content="http://sxmmer0727.github.io/2022/03/19/Post_0010/index.html">
     
     
       <meta 
@@ -42,14 +42,18 @@
         content="article">
       <meta 
         property="og:article:published_time" 
-        content="2022-02-21">
+        content="2022-03-19">
       <meta 
         property="og:article:modified_time" 
-        content="2022-02-21">
+        content="2022-03-25">
       <meta 
         property="og:article:author" 
         content="小洵">
       
+        
+          <meta 
+            property="og:article:tag" 
+            content="学习">
         
       
     
@@ -260,41 +264,52 @@
 <article class="card card-content">
   <header>
     <h1 class="post-title">
-      Hello World
+      第10篇博客：MySQL分组函数
     </h1>
   </header>
   <div class="post-meta post-show-meta">
-    <time datetime="2022-02-21T09:26:50.631Z">
+    <time datetime="2022-03-19T14:51:22.000Z">
       <i 
         class="iconfont icon-calendar" 
         style="margin-right: 2px;">
       </i>
-      <span>2022-02-21</span>
+      <span>2022-03-19</span>
     </time>
     
     
       <span class="dot"></span>
-      <span>75 words</span>
+      <span>427 words</span>
     
   </div>
+  
+    <div 
+      class="post-meta post-show-meta" 
+      style="margin-top: -10px;">
+      <div style="display: flex; align-items: center;">
+        <i 
+          class="iconfont icon-biaoqian" 
+          style="margin-right: 2px; font-size: 1.15rem;">
+        </i>
+        
+          
+          <a 
+            href="/tags/%E5%AD%A6%E4%B9%A0/" 
+            class="post-meta-link">
+            学习
+          </a>
+        
+      </div>
+    </div>
   
   </header>
   <div 
     id="section" 
     class="post-content">
-    <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class="highlight"><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre>
+    <hr>
+<h2 id="MySQL常用分组函数"><a href="#MySQL常用分组函数" class="headerlink" title="MySQL常用分组函数"></a>MySQL常用分组函数</h2><pre class="highlight"><span class="line"><span class="comment">#分组函数</span></span><br><span class="line">/*</span><br><span class="line">分类：<span class="built_in">sum</span> avg max min count</span><br><span class="line"></span><br><span class="line">*/</span><br><span class="line"><span class="comment">#1.简单使用</span></span><br><span class="line">USE myemployees;</span><br><span class="line">SELECT SUM(salary) FROM employees; <span class="comment">#null值不参与计算</span></span><br><span class="line">SELECT AVG(salary) FROM employees; <span class="comment">#null值不参与计算</span></span><br><span class="line">SELECT MAX(salary) FROM employees; <span class="comment">#null值不参与计算</span></span><br><span class="line">SELECT MIN(salary) FROM employees; <span class="comment">#null值不参与计算</span></span><br><span class="line">SELECT COUNT(salary) FROM employees; <span class="comment">#计算非空值的个数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#2.和distinct搭配使用</span></span><br><span class="line">SELECT SUM(DISTINCT salary) FROM employees;</span><br><span class="line">SELECT COUNT(DISTINCT salary) FROM employees;</span><br><span class="line"></span><br><span class="line"><span class="comment">#3.count函数的详细介绍</span></span><br><span class="line">SELECT COUNT(*) FROM employees; <span class="comment">#一般用来统计行数</span></span><br><span class="line">SELECT COUNT(1) FROM EMPLOYEES; <span class="comment">#也是用来统计行数 可以是任意常量值</span></span><br><span class="line"><span class="comment">#效率myisam存储引擎下，count(*)效率更高 INNODB引擎下，效率差不多</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#4.datediff</span></span><br><span class="line">SELECT DATEDIFF(MAX(hiredate),MIN(hiredate)) difference FROM employees; </span><br><span class="line"></span><br><span class="line"><span class="comment">#5.分组查询 group by</span></span><br><span class="line">SELECT </span><br><span class="line">  AVG(salary) AS A,</span><br><span class="line">  job_id </span><br><span class="line">FROM</span><br><span class="line">  employees </span><br><span class="line">GROUP BY job_id </span><br><span class="line">ORDER BY A ASC;</span><br><span class="line"></span><br><span class="line"><span class="comment">#6.复杂的筛选条件 查询哪个部门的员工个数大于2(分组后筛选)</span></span><br><span class="line">SELECT COUNT(*) AS G, DEPARTMENT_ID FROM EMPLOYEES</span><br><span class="line">GROUP BY DEPARTMENT_ID</span><br><span class="line">HAVING G &gt; 2;</span><br><span class="line"><span class="comment">#查询每个工种有奖金的员工的最高工资&gt;12000的工种编号和最高工资</span></span><br><span class="line">SELECT </span><br><span class="line">  job_id,</span><br><span class="line">  MAX(salary) </span><br><span class="line">FROM</span><br><span class="line">  employees </span><br><span class="line">WHERE commission_pct IS NOT NULL </span><br><span class="line">GROUP BY job_id</span><br><span class="line">HAVING MAX(salary)&gt;12000;</span><br><span class="line"><span class="comment">#查询领导编号&gt;102的每个领导手下的最低工资&gt;5000的领导编号及最低工资</span></span><br><span class="line">SELECT MIN(salary),manager_id</span><br><span class="line">FROM employees</span><br><span class="line">WHERE manager_id&gt;102</span><br><span class="line">GROUP BY manager_id</span><br><span class="line">HAVING MIN(SALARY)&gt;5000;</span><br><span class="line"><span class="comment">#按员工姓名的长度分组，查询每一组的员工个数，筛选员工个数&gt;5的有哪些</span></span><br><span class="line">SELECT COUNT(*) G,LENGTH(last_name)</span><br><span class="line">FROM employees</span><br><span class="line">GROUP BY LENGTH(last_name)</span><br><span class="line">HAVING G&gt;5;</span><br><span class="line"><span class="comment">#查询各个管理者手下员工的最低工资，最低工资不能低于6000，没有管理者员工不计算在内</span></span><br><span class="line">SELECT MIN(SALARY), manager_id</span><br><span class="line">FROM EMPLOYEES</span><br><span class="line">WHERE manager_id IS NOT NULL</span><br><span class="line">GROUP BY manager_id</span><br><span class="line">HAVING MIN(SALARY)&gt;6000</span><br><span class="line">ORDER BY MIN(SALARY) DESC, manager_id ASC;</span><br></pre>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class="highlight"><span class="line">$ hexo server</span><br></pre>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class="highlight"><span class="line">$ hexo generate</span><br></pre>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class="highlight"><span class="line">$ hexo deploy</span><br></pre>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<p><img src="/img/5bike.jpg" alt="sxm骑车图片" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="/img/5bike.jpg" class="lozad post-image"><br></p>
 
   </div>
   <div>
@@ -314,8 +329,8 @@
           <span style="font-weight: bold;">文章链接：</span><a 
             target="_blank" 
             rel="nofollow noopener noreferrer" 
-            href="http://sxmmer0727.github.io/2022/02/21/hello-world/">
-            http://sxmmer0727.github.io/2022/02/21/hello-world/
+            href="http://sxmmer0727.github.io/2022/03/19/Post_0010/">
+            http://sxmmer0727.github.io/2022/03/19/Post_0010/
           </a>
         </p>
         <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
@@ -327,18 +342,32 @@
   
     <div class="nav-item-prev">
       <a 
-        href="/2022/02/21/myFirst/" 
+        href="/2022/03/20/Post_0011/" 
         class="nav-link">
         <i class="iconfont icon-left nav-prev-icon"></i>
         <div>
           <div class="nav-label">Prev</div>
           
-            <div class="nav-title">第一篇博客：基于Hexo和Github的博客搭建 </div>
+            <div class="nav-title">第11篇博客：MySQL连接查询 </div>
           
         </div>
       </a>
     </div>
   
+  
+    <div class="nav-item-next">
+      <a 
+        href="/2022/03/18/Post_0000/" 
+        class="nav-link">
+        <div>
+          <div class="nav-label">Next</div>
+          
+            <div class="nav-title">第篇博客：MySQL常用单行函数 </div>
+          
+        </div>
+        <i class="iconfont icon-right nav-next-icon"></i>
+      </a>
+    </div>
   
 </div>
 
@@ -351,7 +380,7 @@
     style="padding-right: 2px;">
   </i>TOC
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL%E5%B8%B8%E7%94%A8%E5%88%86%E7%BB%84%E5%87%BD%E6%95%B0"><span class="toc-text">MySQL常用分组函数</span></a></li></ol>
 </div></main>
             <aside class="left-column">
               
@@ -399,7 +428,7 @@
     style="padding-right: 2px;">
   </i>TOC
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL%E5%B8%B8%E7%94%A8%E5%88%86%E7%BB%84%E5%87%BD%E6%95%B0"><span class="toc-text">MySQL常用分组函数</span></a></li></ol>
       </div>
     </article>
   
@@ -452,7 +481,7 @@
     style="padding-right: 2px;">
   </i>TOC
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL%E5%B8%B8%E7%94%A8%E5%88%86%E7%BB%84%E5%87%BD%E6%95%B0"><span class="toc-text">MySQL常用分组函数</span></a></li></ol>
     </article>
   
   
